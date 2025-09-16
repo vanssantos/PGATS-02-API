@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,4 +23,13 @@ jobs:
         run: npm install
         
       - name: Run tests
-        run: npm test
+        run: npm run test-controller
+
+      - name: Subir a API
+        run: npm start &  // Executa em segundo plano
+
+      - name: Esperar a API estar Funcionando
+        run: sleep 5  // Aguarda 5 segundos para garantir que a API esteja funcionando
+
+      - name: Rodar os testes de API via HTTP
+        run: npm run test-external
